@@ -1,4 +1,3 @@
-fruit cut game
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +8,6 @@ body{
   overflow:hidden;
   background:#111;
   color:white;
-  text-align:center;
   font-family:sans-serif;
 }
 #score{
@@ -20,8 +18,12 @@ body{
 }
 .fruit{
   position:absolute;
-  font-size:40px;
+  font-size:45px;
   cursor:pointer;
+  transition: transform 0.2s;
+}
+.fruit:active{
+  transform: scale(1.3);
 }
 </style>
 </head>
@@ -33,6 +35,7 @@ body{
 let score = 0;
 
 function spawnFruit(){
+
   const fruit = document.createElement("div");
   fruit.className = "fruit";
 
@@ -43,29 +46,3 @@ function spawnFruit(){
   fruit.style.top = window.innerHeight + "px";
 
   document.body.appendChild(fruit);
-
-  let pos = window.innerHeight;
-
-  const fall = setInterval(()=>{
-    pos -= 5;
-    fruit.style.top = pos + "px";
-
-    if(pos < -50){
-      fruit.remove();
-      clearInterval(fall);
-    }
-  },20);
-
-  fruit.onclick = ()=>{
-    score++;
-    document.getElementById("score").innerText = "Score: " + score;
-    fruit.remove();
-    clearInterval(fall);
-  };
-}
-
-setInterval(spawnFruit,1000);
-</script>
-
-</body>
-</html>
