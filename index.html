@@ -1,0 +1,71 @@
+fruit cut game
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fruit Cut Game</title>
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  background:#111;
+  color:white;
+  text-align:center;
+  font-family:sans-serif;
+}
+#score{
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-size:24px;
+}
+.fruit{
+  position:absolute;
+  font-size:40px;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div id="score">Score: 0</div>
+
+<script>
+let score = 0;
+
+function spawnFruit(){
+  const fruit = document.createElement("div");
+  fruit.className = "fruit";
+
+  const fruits = ["🍎","🍉","🍌","🍓","🥕","🥑"];
+  fruit.innerText = fruits[Math.floor(Math.random()*fruits.length)];
+
+  fruit.style.left = Math.random()*window.innerWidth + "px";
+  fruit.style.top = window.innerHeight + "px";
+
+  document.body.appendChild(fruit);
+
+  let pos = window.innerHeight;
+
+  const fall = setInterval(()=>{
+    pos -= 5;
+    fruit.style.top = pos + "px";
+
+    if(pos < -50){
+      fruit.remove();
+      clearInterval(fall);
+    }
+  },20);
+
+  fruit.onclick = ()=>{
+    score++;
+    document.getElementById("score").innerText = "Score: " + score;
+    fruit.remove();
+    clearInterval(fall);
+  };
+}
+
+setInterval(spawnFruit,1000);
+</script>
+
+</body>
+</html>
